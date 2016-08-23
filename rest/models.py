@@ -57,7 +57,11 @@ class ContentType(DjangoContentType):
         cls = self.model_class()
         if cls is None:
             return []
-        rels = cls._meta.get_all_related_objects()
+        rels = [
+            f for f in cls._meta.get_fields()
+            if (f.one_to_many or f.one_to_one)
+            and f.auto_created and not f.concrete
+        ]
 
         # get_all_related_objects() structure changed in Django 1.8
         def get_model(rel):

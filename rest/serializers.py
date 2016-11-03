@@ -152,6 +152,7 @@ class BaseModelSerializer(JSONFormSerializer, serializers.ModelSerializer):
 
     class Meta:
         wq_config = {}
+        fields = '__all__'
 
 
 class ModelSerializer(BaseModelSerializer):
